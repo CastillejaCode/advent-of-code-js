@@ -1,5 +1,4 @@
-const file = Bun.file(import.meta.dir + '/input.txt');
-const text = await file.text();
+import text from './input.txt';
 const arr = text.split('\n');
 
 function getNumber(string: string): number {

@@ -1,19 +1,19 @@
 import text from './input.txt';
 const arr = text.split('\n');
 
-function getNumber(string: string): number {
-	const arr = Array.from(string);
-	const firstNumber = arr.find((x) => Number.isInteger(Number(x)));
-	const secondNumber = arr.findLast((x) => Number.isInteger(Number(x)));
-
-	if (typeof firstNumber !== 'string' || typeof secondNumber !== 'string')
-		throw new Error('You must have copied something wrong.');
-	return Number(firstNumber + secondNumber);
+function getNumber(string: string, regexp: RegExp): number {
+	const arr = string.match(regexp);
+	const numbers = [arr?.at(0), arr?.at(-1)].join('');
+	return Number(numbers);
 }
 
-function addNumbers(arr: string[]) {
-	return arr.reduce((sum, element) => sum + getNumber(element), 0);
+function addNumbers(arr: string[], regexp: RegExp) {
+	return arr.reduce((sum, element) => sum + getNumber(element, regexp), 0);
 }
 
-const result = addNumbers(arr);
-console.log(result);
+const firstRegexp = new RegExp(/\d/g);
+const firstResult = addNumbers(arr, firstRegexp);
+console.log('First Answer = ' + firstResult);
+
+// const secondResult = addNumbers(arr);
+// console.log('Second Answer = ' + secondResult);
